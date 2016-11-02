@@ -6,25 +6,43 @@ import (
 	"golang.org/x/tools/go/loader"
 	"log"
 	"os"
+	"regexp"
 	"strconv"
 	"strings"
 )
 
 func main() {
 	var conf loader.Config
+	var err error
+	var pregexp *regexp.Regexp
+	var dregexp *regexp.Regexp
 
 	pkgs := flag.String("pkgs", "fmt", "starting pkgs for the analysis")
 	outputFile := flag.String("output", "a.graphml", "graphml output file")
-	permit := flag.String("permit", "", "substring that has to be included in the pkg name")
-	deny := flag.String("deny", "", "substraing that if contained removes the pkg from the graph")
+	permit := flag.String("permit", "", "regex that has to be included in the pkg name")
+	deny := flag.String("deny", "", "regex that if contained removes the pkg from the graph")
 	includeStdLib := flag.Bool("includeStdLib", false, "include std lib pkgs in the graph")
 
 	flag.Parse()
 
-	filter := pkg_graph.NewFilter(*includeStdLib, *permit, *deny)
+	if *permit != "" {
+		pregexp, err = regexp.Compile(*permit)
+		if err != nil {
+			log.Fatalf("Failed to compile permit regexp. %v", err)
+		}
+	}
+
+	if *deny != "" {
+		dregexp, err = regexp.Compile(*deny)
+		if err != nil {
+			log.Fatalf("Failed to compile deny regexp. %v", err)
+		}
+	}
+
+	filter := pkg_graph.NewFilter(*includeStdLib, pregexp, dregexp)
 
 	pkgList := strings.Split(*pkgs, ",")
-	_, err := conf.FromArgs(pkgList, true)
+	_, err = conf.FromArgs(pkgList, true)
 	prog, err := conf.Load()
 	if err != nil {
 		log.Fatal(err)

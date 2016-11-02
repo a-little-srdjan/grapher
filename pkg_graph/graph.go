@@ -2,16 +2,17 @@ package pkg_graph
 
 import (
 	"go/types"
+	"regexp"
 	"strings"
 )
 
 type Filter struct {
 	includeStdLib bool
-	permit        string
-	deny          string
+	permit        *regexp.Regexp
+	deny          *regexp.Regexp
 }
 
-func NewFilter(includeStdLib bool, permit string, deny string) *Filter {
+func NewFilter(includeStdLib bool, permit *regexp.Regexp, deny *regexp.Regexp) *Filter {
 	return &Filter{
 		includeStdLib: includeStdLib,
 		permit:        permit,
@@ -63,14 +64,14 @@ func (p *PkgGraph) Populate(n *PkgNode) {
 				continue
 			}
 
-			if p.Filter.permit != "" {
-				if !strings.Contains(cpath, p.Filter.permit) {
+			if p.Filter.permit != nil {
+				if !p.Filter.permit.MatchString(cpath) {
 					continue
 				}
 			}
 
-			if p.Filter.deny != "" {
-				if strings.Contains(cpath, p.Filter.deny) {
+			if p.Filter.deny != nil {
+				if p.Filter.deny.MatchString(cpath) {
 					continue
 				}
 			}
