@@ -1,7 +1,6 @@
 package pkg_graph
 
 import (
-	"go/ast"
 	"go/types"
 	"golang.org/x/tools/go/loader"
 	"regexp"
@@ -20,37 +19,6 @@ func NewFilter(includeStdLib bool, permit *regexp.Regexp, deny *regexp.Regexp) *
 		permit:        permit,
 		deny:          deny,
 	}
-}
-
-type PkgNode struct {
-	Node     *types.Package
-	Parents  []*PkgNode
-	Children []*PkgNode
-	Files    []*ast.File
-}
-
-func NewPkgNode(root *types.Package, files []*ast.File) *PkgNode {
-	top := &PkgNode{
-		Node:     root,
-		Parents:  make([]*PkgNode, 0),
-		Children: make([]*PkgNode, 0),
-		Files:    files,
-	}
-
-	return top
-}
-
-func (n *PkgNode) TotalFuncDecls() int {
-	nFuncs := 0
-	for _, file := range n.Files {
-		for _, obj := range file.Scope.Objects {
-			if obj.Kind == ast.Fun {
-				nFuncs++
-			}
-		}
-	}
-
-	return nFuncs
 }
 
 type PkgGraph struct {
