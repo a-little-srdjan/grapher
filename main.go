@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"github.com/a-little-srdjan/yagat/pkg_graph"
 	"golang.org/x/tools/go/loader"
 	"log"
@@ -17,10 +18,10 @@ func main() {
 	var pregexp *regexp.Regexp
 	var dregexp *regexp.Regexp
 
-	pkgs := flag.String("pkgs", "fmt", "starting pkgs for the analysis")
-	outputFile := flag.String("output", "a.graphml", "graphml output file")
-	permit := flag.String("permit", "", "regex that has to be included in the pkg name")
-	deny := flag.String("deny", "", "regex that if contained removes the pkg from the graph")
+	pkgs := flag.String("pkgs", "fmt", "root pkgs for the analysis")
+	outputFile := flag.String("output", "a.graphml", "(yed) graphml output file")
+	permit := flag.String("permit", "", "regex pattern that has to be included in the pkg name")
+	deny := flag.String("deny", "", "regex pattern that must not be included in the pkg name")
 	includeStdLib := flag.Bool("includeStdLib", false, "include std lib pkgs in the graph")
 
 	flag.Parse()
@@ -48,9 +49,9 @@ func main() {
 		log.Fatal(err)
 	}
 
-	g := pkg_graph.NewPkgGraph(filter)
+	g := pkg_graph.NewPkgGraph(filter, prog.AllPackages)
 	for _, v := range prog.Imported {
-		n := pkg_graph.NewPkgNode(v.Pkg)
+		n := pkg_graph.NewPkgNode(v.Pkg, g.PkgInfos[v.Pkg].Files)
 		g.Populate(n)
 	}
 
@@ -67,16 +68,20 @@ func GenerateGraphML(graph *pkg_graph.PkgGraph, fileName string) {
 	output.WriteString(`<key for="node" id="d1" yfiles.type="nodegraphics"/>`)
 	output.WriteString(`<graph id="G" edgedefault="directed">`)
 
-	for name, _ := range graph.Nodes {
+	for name, node := range graph.Nodes {
+		size := 40.0 + 200*(float64(node.TotalFuncs())/float64(graph.TotalFuncs))
+
 		output.WriteString(`<node id="` + name + `"><data key="d1"><y:ShapeNode>`)
+		output.WriteString(`<y:Geometry height="` + fmt.Sprintf("%.2f", size) + `" width="` + fmt.Sprintf("%.2f", size) + `"/>`)
 		output.WriteString(`<y:NodeLabel>` + name + `</y:NodeLabel>`)
+		output.WriteString(`<y:Shape type="ellipse"/>`)
 		output.WriteString(`</y:ShapeNode></data></node>`)
 	}
 
 	id := 0
-	for _, node := range graph.Nodes {
-		for _, child := range node.Children {
-			output.WriteString(`<edge id="` + strconv.Itoa(id) + `" source="` + node.Node.Path() + `" target="` + child.Node.Path() + `"/>`)
+	for pname, pnode := range graph.Nodes {
+		for _, cnode := range pnode.Children {
+			output.WriteString(`<edge id="` + strconv.Itoa(id) + `" source="` + pname + `" target="` + cnode.Node.Path() + `"/>`)
 			id++
 		}
 	}

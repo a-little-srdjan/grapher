@@ -1,7 +1,9 @@
 package pkg_graph
 
 import (
+	"go/ast"
 	"go/types"
+	"golang.org/x/tools/go/loader"
 	"regexp"
 	"strings"
 )
@@ -24,27 +26,46 @@ type PkgNode struct {
 	Node     *types.Package
 	Parents  []*PkgNode
 	Children []*PkgNode
+	Files    []*ast.File
 }
 
-func NewPkgNode(root *types.Package) *PkgNode {
+func NewPkgNode(root *types.Package, files []*ast.File) *PkgNode {
 	top := &PkgNode{
 		Node:     root,
 		Parents:  make([]*PkgNode, 0),
 		Children: make([]*PkgNode, 0),
+		Files:    files,
 	}
 
 	return top
 }
 
-type PkgGraph struct {
-	Nodes  map[string]*PkgNode
-	Filter *Filter
+func (n *PkgNode) TotalFuncs() int {
+	nFuncs := 0
+	for _, file := range n.Files {
+		for _, obj := range file.Scope.Objects {
+			if obj.Kind == ast.Fun {
+				nFuncs++
+			}
+		}
+	}
+
+	return nFuncs
 }
 
-func NewPkgGraph(filter *Filter) *PkgGraph {
+type PkgGraph struct {
+	PkgInfos   map[*types.Package]*loader.PackageInfo
+	Nodes      map[string]*PkgNode
+	Filter     *Filter
+	TotalFuncs int
+}
+
+func NewPkgGraph(filter *Filter, allPkgs map[*types.Package]*loader.PackageInfo) *PkgGraph {
 	return &PkgGraph{
-		Nodes:  make(map[string]*PkgNode),
-		Filter: filter,
+		Nodes:      make(map[string]*PkgNode),
+		Filter:     filter,
+		PkgInfos:   allPkgs,
+		TotalFuncs: 0,
 	}
 }
 
@@ -56,6 +77,7 @@ func (p *PkgGraph) Populate(n *PkgNode) {
 	_, ok := p.Nodes[n.Node.Path()]
 	if !ok {
 		p.Nodes[n.Node.Path()] = n
+		p.TotalFuncs += n.TotalFuncs()
 
 		for _, c := range n.Node.Imports() {
 			cpath := c.Path()
@@ -78,7 +100,7 @@ func (p *PkgGraph) Populate(n *PkgNode) {
 
 			cNode, ok := p.Nodes[cpath]
 			if !ok {
-				cNode = NewPkgNode(c)
+				cNode = NewPkgNode(c, p.PkgInfos[c].Files)
 				p.Populate(cNode)
 			}
 			cNode.Parents = append(cNode.Parents, n)
