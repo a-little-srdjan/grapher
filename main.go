@@ -68,8 +68,9 @@ func GenerateGraphML(graph *pkg_graph.PkgGraph, fileName string) {
 	output.WriteString(`<key for="node" id="d1" yfiles.type="nodegraphics"/>`)
 	output.WriteString(`<graph id="G" edgedefault="directed">`)
 
+	graphTotalFuncDecls := graph.TotalFuncDecls()
 	for name, node := range graph.Nodes {
-		size := 40.0 + 200*(float64(node.TotalFuncs())/float64(graph.TotalFuncs))
+		size := 40.0 + 200*(float64(node.TotalFuncDecls())/float64(graphTotalFuncDecls))
 
 		output.WriteString(`<node id="` + name + `"><data key="d1"><y:ShapeNode>`)
 		output.WriteString(`<y:Geometry height="` + fmt.Sprintf("%.2f", size) + `" width="` + fmt.Sprintf("%.2f", size) + `"/>`)

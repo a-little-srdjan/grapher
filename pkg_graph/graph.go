@@ -40,7 +40,7 @@ func NewPkgNode(root *types.Package, files []*ast.File) *PkgNode {
 	return top
 }
 
-func (n *PkgNode) TotalFuncs() int {
+func (n *PkgNode) TotalFuncDecls() int {
 	nFuncs := 0
 	for _, file := range n.Files {
 		for _, obj := range file.Scope.Objects {
@@ -54,18 +54,16 @@ func (n *PkgNode) TotalFuncs() int {
 }
 
 type PkgGraph struct {
-	PkgInfos   map[*types.Package]*loader.PackageInfo
-	Nodes      map[string]*PkgNode
-	Filter     *Filter
-	TotalFuncs int
+	PkgInfos map[*types.Package]*loader.PackageInfo
+	Nodes    map[string]*PkgNode
+	Filter   *Filter
 }
 
 func NewPkgGraph(filter *Filter, allPkgs map[*types.Package]*loader.PackageInfo) *PkgGraph {
 	return &PkgGraph{
-		Nodes:      make(map[string]*PkgNode),
-		Filter:     filter,
-		PkgInfos:   allPkgs,
-		TotalFuncs: 0,
+		Nodes:    make(map[string]*PkgNode),
+		Filter:   filter,
+		PkgInfos: allPkgs,
 	}
 }
 
@@ -77,7 +75,6 @@ func (p *PkgGraph) Populate(n *PkgNode) {
 	_, ok := p.Nodes[n.Node.Path()]
 	if !ok {
 		p.Nodes[n.Node.Path()] = n
-		p.TotalFuncs += n.TotalFuncs()
 
 		for _, c := range n.Node.Imports() {
 			cpath := c.Path()
@@ -107,6 +104,15 @@ func (p *PkgGraph) Populate(n *PkgNode) {
 			n.Children = append(n.Children, cNode)
 		}
 	}
+}
+
+func (g *PkgGraph) TotalFuncDecls() int {
+	sum := 0
+	for _, node := range g.Nodes {
+		sum += node.TotalFuncDecls()
+	}
+
+	return sum
 }
 
 // Imported
