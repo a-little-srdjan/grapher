@@ -55,6 +55,7 @@ func main() {
 		g.Populate(n)
 	}
 
+	g.CalcCallStats()
 	GenerateGraphML(g, *outputFile)
 }
 

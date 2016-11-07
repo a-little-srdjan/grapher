@@ -1,13 +1,15 @@
 package pkg_graph
 
 import (
+	"fmt"
 	"go/ast"
 	"go/types"
+	"reflect"
 )
 
-type FuncID string
-
-type CallStats map[*PkgNode]map[FuncID]int
+type PkgName string
+type FuncName string
+type CallStats map[PkgName]map[FuncName]int
 
 type PkgNode struct {
 	Node      *types.Package
@@ -42,6 +44,34 @@ func (n *PkgNode) TotalFuncDecls() int {
 	return nFuncs
 }
 
-func (n *PkgNode) Visit(node ast.Node) (w ast.Visitor) {
-	return nil
+func (n *PkgNode) CalcCallStats() {
+	for _, file := range n.Files {
+		counter := NewCallCounter(n.CallStats)
+		ast.Walk(counter, file)
+	}
+}
+
+type CallCounter struct {
+	CallStats CallStats
+}
+
+func NewCallCounter(stats CallStats) *CallCounter {
+	return &CallCounter{
+		CallStats: stats,
+	}
+}
+
+func (v *CallCounter) Visit(node ast.Node) (w ast.Visitor) {
+	if node == nil {
+		w = nil
+		return
+	}
+
+	callExpr, ok := node.(*ast.CallExpr)
+	if ok {
+		fmt.Printf("%v of type %v\n", callExpr.Fun, reflect.TypeOf(callExpr.Fun))
+	}
+
+	w = v
+	return
 }

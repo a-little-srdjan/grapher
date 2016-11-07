@@ -83,6 +83,12 @@ func (g *PkgGraph) TotalFuncDecls() int {
 	return sum
 }
 
+func (g *PkgGraph) CalcCallStats() {
+	for _, node := range g.Nodes {
+		node.CalcCallStats()
+	}
+}
+
 // Imported
 // See go/src/cmd/go/pkg.go
 //
