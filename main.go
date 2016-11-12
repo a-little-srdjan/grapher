@@ -2,14 +2,13 @@ package main
 
 import (
 	"flag"
-	"fmt"
-	"github.com/a-little-srdjan/yagat/pkg_graph"
-	"golang.org/x/tools/go/loader"
 	"log"
-	"os"
 	"regexp"
-	"strconv"
 	"strings"
+
+	"github.com/a-little-srdjan/yagat/pkg_graph"
+	"github.com/a-little-srdjan/yagat/printers"
+	"golang.org/x/tools/go/loader"
 )
 
 func main() {
@@ -19,7 +18,7 @@ func main() {
 	var dregexp *regexp.Regexp
 
 	pkgs := flag.String("pkgs", "fmt", "root pkgs for the analysis")
-	outputFile := flag.String("output", "a.graphml", "(yed) graphml output file")
+	outputFile := flag.String("output", "a", "output file name for pl and grapml outputs")
 	permit := flag.String("permit", "", "regex pattern that has to be included in the pkg name")
 	deny := flag.String("deny", "", "regex pattern that must not be included in the pkg name")
 	includeStdLib := flag.Bool("includeStdLib", false, "include std lib pkgs in the graph")
@@ -56,52 +55,6 @@ func main() {
 	}
 
 	g.CalcCallStats()
-	GenerateGraphML(g, *outputFile)
+	printers.NewGraphMLPrinter(g, 40, 350).Print(*outputFile + ".graphml")
+	printers.NewPrologPrinter(g).Print(*outputFile + ".pl")
 }
-
-func GenerateGraphML(graph *pkg_graph.PkgGraph, fileName string) {
-	output, err := os.Create(fileName)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	output.WriteString(graphMLPrefix)
-	output.WriteString(`<key for="node" id="d1" yfiles.type="nodegraphics"/>`)
-	output.WriteString(`<graph id="G" edgedefault="directed">`)
-
-	graphTotalFuncDecls := graph.TotalFuncDecls()
-	for name, node := range graph.Nodes {
-		size := 40.0 + 200*(float64(node.TotalFuncDecls())/float64(graphTotalFuncDecls))
-
-		output.WriteString(`<node id="` + name + `"><data key="d1"><y:ShapeNode>`)
-		output.WriteString(`<y:Geometry height="` + fmt.Sprintf("%.2f", size) + `" width="` + fmt.Sprintf("%.2f", size) + `"/>`)
-		output.WriteString(`<y:NodeLabel>` + name + `</y:NodeLabel>`)
-		output.WriteString(`<y:Shape type="ellipse"/>`)
-		output.WriteString(`</y:ShapeNode></data></node>`)
-	}
-
-	id := 0
-	for pname, pnode := range graph.Nodes {
-		for _, cnode := range pnode.Children {
-			output.WriteString(`<edge id="` + strconv.Itoa(id) + `" source="` + pname + `" target="` + cnode.Node.Path() + `"/>`)
-			id++
-		}
-	}
-
-	output.WriteString(`</graph>`)
-	output.WriteString(graphMLSuffix)
-	output.Close()
-
-	log.Printf("Written %v nodes.\n", len(graph.Nodes))
-	log.Printf("Written %v edges.\n", id)
-}
-
-var graphMLPrefix = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<graphml
- xmlns="http://graphml.graphdrawing.org/xmlns"
- xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xmlns:y="http://www.yworks.com/xml/graphml"
- xmlns:yed="http://www.yworks.com/xml/yed/3"
- xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml/1.1/ygraphml.xsd">`
-
-var graphMLSuffix = `</graphml>`
