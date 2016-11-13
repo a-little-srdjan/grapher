@@ -1,11 +1,11 @@
 package printers
 
 import (
-	"github.com/a-little-srdjan/yagat/pkg_graph"
-
 	"bytes"
 	"fmt"
 	"strconv"
+
+	"github.com/a-little-srdjan/yagat/pkg_graph"
 )
 
 type GraphMLPrinter struct {
