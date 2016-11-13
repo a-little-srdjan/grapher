@@ -2,6 +2,7 @@ package printers
 
 import (
 	"bytes"
+	"fmt"
 	"strings"
 
 	"github.com/a-little-srdjan/yagat/pkg_graph"
@@ -22,27 +23,40 @@ func (p *PrologPrinter) WriteBuffer() *bytes.Buffer {
 	p.WriteSuppressWarnings()
 	p.WriteNestedIDB()
 	p.WriteDepIDB()
+	p.WriteLabelIDB()
+	p.WriteConstraintsIDB()
 	p.WriteEDB()
 
 	return p.buffer
 }
 
 func (p *PrologPrinter) WriteSuppressWarnings() {
-	prologStmt(p.buffer, `:- discontiguous dir/1.`)
+	prologStmt(p.buffer, `:- discontiguous dir/2.`)
 	prologStmt(p.buffer, `:- discontiguous direct_nested/2.`)
 	prologStmt(p.buffer, `:- discontiguous pkg/1.`)
 	prologStmt(p.buffer, `:- discontiguous imports/2.`)
 }
 
 func (p *PrologPrinter) WriteNestedIDB() {
-	prologStmt(p.buffer, `nested(X, Y) :- direct_nested(X, Y), dir(X), dir(Y).`)
-	prologStmt(p.buffer, `nested(X, Y) :- direct_nested(Z, Y), parent(X, Z).`)
+	prologStmt(p.buffer, `nested(X, Y) :- direct_nested(X, Y), dir(X, _), dir(Y, _).`)
+	prologStmt(p.buffer, `nested(X, Y) :- direct_nested(Z, Y), nested(X, Z).`)
 	prologStmt(p.buffer, `pkg_dir(X) :- dir(X), pkg(X).`)
 }
 
 func (p *PrologPrinter) WriteDepIDB() {
 	prologStmt(p.buffer, `dependency(X, Y) :- imports(X, Y), pkg(X), pkg(Y).`)
 	prologStmt(p.buffer, `dependency(X, Y) :- imports(Z, Y), dependency(X, Z).`)
+}
+
+func (p *PrologPrinter) WriteLabelIDB() {
+	prologStmt(p.buffer, `p_label(M, D, Y) :- mark(M, Y), dir(Y, D).`)
+	prologStmt(p.buffer, `p_label(M, D, Y) :- mark(M, Z), nested(Z, Y), dir(Z, D).`)
+	prologStmt(p.buffer, `d_label(M, Y) :- p_label(M, D, Y), p_label(M2, D2, Y), M \== M2, D2 > D.`)
+	prologStmt(p.buffer, `label(M, Y) :- p_label(M, _, Y), \+ d_label(M, Y).`)
+}
+
+func (p *PrologPrinter) WriteConstraintsIDB() {
+	prologStmt(p.buffer, `violation(X, Y) :- dependency(X, Y), label(M, X), label(M2, Y), M \== M2, M < M2.`)
 }
 
 func (p *PrologPrinter) WriteEDB() {
@@ -59,14 +73,14 @@ func (p *PrologPrinter) WriteEDB() {
 		p0 := nests[0]
 		if !in(edbSet, p0) {
 			edbSet[p0] = struct{}{}
-			prologStmt(p.buffer, atomStmt("dir", p0))
+			prologStmt(p.buffer, atomStmt("dir", p0, 0))
 		}
 
 		for i := 1; i < len(nests); i++ {
 			p1 := strings.Join([]string{p0, nests[i]}, "/")
 			if !in(edbSet, p1) {
 				edbSet[p1] = struct{}{}
-				prologStmt(p.buffer, atomStmt("dir", p1))
+				prologStmt(p.buffer, atomStmt("dir", p1, i))
 				prologStmt(p.buffer, atomStmt("direct_nested", p0, p1))
 			}
 			p0 = p1
@@ -84,11 +98,18 @@ func prologStmt(output *bytes.Buffer, stmt string) {
 	output.WriteString("\n")
 }
 
-func atomStmt(name string, params ...string) string {
+func atomStmt(name string, params ...interface{}) string {
 	var b bytes.Buffer
 	b.WriteString(name + "(")
-	for _, p := range params {
-		b.WriteString(stringConstant(p))
+	for _, raw := range params {
+		switch t := raw.(type) {
+		default:
+			b.WriteString("_")
+		case string:
+			b.WriteString(stringConstant(t))
+		case int:
+			b.WriteString(fmt.Sprintf("%d", t))
+		}
 		b.WriteString(",")
 	}
 	b.Truncate(b.Len() - 1)
