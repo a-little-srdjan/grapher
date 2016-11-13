@@ -55,6 +55,6 @@ func main() {
 	}
 
 	g.CalcCallStats()
-	printers.NewGraphMLPrinter(g, 40, 350).Print(*outputFile + ".graphml")
-	printers.NewPrologPrinter(g).Print(*outputFile + ".pl")
+	printers.Print(printers.NewGraphMLPrinter(g, 40, 350).WriteBuffer(), *outputFile+".graphml")
+	printers.Print(printers.NewPrologPrinter(g).WriteBuffer(), *outputFile+".pl")
 }
