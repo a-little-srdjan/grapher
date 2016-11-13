@@ -19,11 +19,19 @@ func NewPrologPrinter(graph *pkg_graph.PkgGraph) *PrologPrinter {
 
 func (p *PrologPrinter) WriteBuffer() *bytes.Buffer {
 	p.buffer = new(bytes.Buffer)
+	p.WriteSuppressWarnings()
 	p.WriteNestedIDB()
 	p.WriteDepIDB()
 	p.WriteEDB()
 
 	return p.buffer
+}
+
+func (p *PrologPrinter) WriteSuppressWarnings() {
+	prologStmt(p.buffer, `:- discontiguous dir/1.`)
+	prologStmt(p.buffer, `:- discontiguous direct_nested/2.`)
+	prologStmt(p.buffer, `:- discontiguous pkg/1.`)
+	prologStmt(p.buffer, `:- discontiguous imports/2.`)
 }
 
 func (p *PrologPrinter) WriteNestedIDB() {
@@ -49,12 +57,14 @@ func (p *PrologPrinter) WriteEDB() {
 
 		nests := strings.Split(name, "/")
 		p0 := nests[0]
-		prologStmt(p.buffer, atomStmt("dir", p0))
+		if !in(edbSet, p0) {
+			edbSet[p0] = struct{}{}
+			prologStmt(p.buffer, atomStmt("dir", p0))
+		}
 
 		for i := 1; i < len(nests); i++ {
 			p1 := strings.Join([]string{p0, nests[i]}, "/")
-			_, ok := edbSet[p1]
-			if !ok {
+			if !in(edbSet, p1) {
 				edbSet[p1] = struct{}{}
 				prologStmt(p.buffer, atomStmt("dir", p1))
 				prologStmt(p.buffer, atomStmt("direct_nested", p0, p1))
@@ -62,6 +72,11 @@ func (p *PrologPrinter) WriteEDB() {
 			p0 = p1
 		}
 	}
+}
+
+func in(set map[string]struct{}, e string) bool {
+	_, ok := set[e]
+	return ok
 }
 
 func prologStmt(output *bytes.Buffer, stmt string) {
