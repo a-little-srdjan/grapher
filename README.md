@@ -3,13 +3,28 @@ Yet Another Go Analysis Tool (_feature set not complete_)
 
 ## Overview
 Gapher takes as input a set of Go packages and produces a 
-GraphML and Prolog specifications. These specs can then be used
-to apply graph analysise over the package dependency graph:
+GraphML and Prolog specifications. These specs can then be inputs
+to graph analysise:
 
-1. GraphML spec can be examined by [yEd](http://www.yworks.com/products/yed) 
-2. Prolog spec can be run by [Swi-Prolog](http://www.swi-prolog.org/)
+1. GraphML spec can be examined by [yEd](http://www.yworks.com/products/yed).
+In yEd, we can look at two centrality measures: _edge_ and _betweeness_, to find
+influential packages. Furthermore, the generated nodes' sizes indicate how much
+functionality is contained in each package (in terms of declared functions).
 
-## Key Features
+2. Prolog spec can be run by [Swi-Prolog](http://www.swi-prolog.org/). 
+Using Prolog, we can add constraints over our code base and check whether we have code flowing from
+high-level packages to low-level packages.
+
+## Usage
+Flags:
+* _pkgs_ : root pkgs for the analysis
+* _outputFile_ 
+* _permit_ : regex pattern that has to be part of the pkg name to have the pkg included
+* _deny_ : regex pattern that must not be part of the pkg name to have the pkg included
+* _includeStdLib_ : include std lib pkgs in the graph
+
+1. build the tool 
+2. `grapher -deny=vendor -pkgs=code.wirelessregistry.com/data/readers/queries -output=depgraph`
 
 ## Examples
 ...coming...
