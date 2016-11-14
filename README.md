@@ -1,8 +1,8 @@
-# Gapher
+# Grapher
 Yet Another Go Analysis Tool (_feature set not complete_)
 
 ## Overview
-Gapher takes as input a set of Go packages and outputs a 
+Grapher takes as input a set of Go packages and outputs a 
 GraphML, and a Prolog specification. These outputs form the basis for graph analysis
 and constraint checking over the input package structure.
 
