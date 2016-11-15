@@ -6,8 +6,8 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/a-little-srdjan/yagat/pkg_graph"
-	"github.com/a-little-srdjan/yagat/printers"
+	"github.com/a-little-srdjan/grapher/pkg_graph"
+	"github.com/a-little-srdjan/grapher/printers"
 	"golang.org/x/tools/go/loader"
 )
 

@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/a-little-srdjan/yagat/pkg_graph"
+	"github.com/a-little-srdjan/grapher/pkg_graph"
 )
 
 type GraphMLPrinter struct {

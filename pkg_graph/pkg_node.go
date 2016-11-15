@@ -1,15 +1,30 @@
 package pkg_graph
 
 import (
-	"fmt"
+	// "fmt"
 	"go/ast"
 	"go/types"
-	"reflect"
+	// "reflect"
 )
 
 type PkgName string
 type FuncName string
 type CallStats map[PkgName]map[FuncName]int
+
+func (c CallStats) inc(pkg string, fn string) {
+	pelement, ok := c[PkgName(pkg)]
+	if !ok {
+		c[PkgName(pkg)] = make(map[FuncName]int)
+		c[PkgName(pkg)][FuncName(fn)] = 1
+	} else {
+		_, ok := pelement[FuncName(fn)]
+		if !ok {
+			pelement[FuncName(fn)] = 1
+		} else {
+			pelement[FuncName(fn)]++
+		}
+	}
+}
 
 type PkgNode struct {
 	Node      *types.Package
@@ -69,7 +84,15 @@ func (v *CallCounter) Visit(node ast.Node) (w ast.Visitor) {
 
 	callExpr, ok := node.(*ast.CallExpr)
 	if ok {
-		fmt.Printf("%v of type %v\n", callExpr.Fun, reflect.TypeOf(callExpr.Fun))
+		switch callT := callExpr.Fun.(type) {
+		case *ast.SelectorExpr:
+			switch xT := callT.X.(type) {
+			case *ast.Ident:
+				if xT.Obj == nil {
+					v.CallStats.inc(xT.Name, callT.Sel.Name)
+				}
+			}
+		}
 	}
 
 	w = v
