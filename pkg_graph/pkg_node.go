@@ -1,7 +1,6 @@
 package pkg_graph
 
 import (
-	"fmt"
 	"go/ast"
 	"go/types"
 )
@@ -79,8 +78,7 @@ func (n *PkgNode) CallStatsEdge(pkg PkgName) int {
 		return 0
 	}
 	acc := 0
-	for f, i := range entry {
-		fmt.Printf("%v %v %v %v \n", n.FullName(), pkg, f, i)
+	for _, i := range entry {
 		acc += i
 	}
 
@@ -107,12 +105,9 @@ func (v *CallCounter) Visit(node ast.Node) (w ast.Visitor) {
 	case *ast.SelectorExpr:
 		switch xObj := nodeObj.X.(type) {
 		case *ast.Ident:
-			if xObj.Obj == nil {
-				v.CallStats.inc(xObj.Name, nodeObj.Sel.Name)
-			}
+			v.CallStats.inc(xObj.Name, nodeObj.Sel.Name)
 		}
 	}
-
 	w = v
 	return
 }
