@@ -1,10 +1,8 @@
 package pkg_graph
 
 import (
-	// "fmt"
 	"go/ast"
 	"go/types"
-	// "reflect"
 )
 
 type PkgName string
@@ -82,15 +80,12 @@ func (v *CallCounter) Visit(node ast.Node) (w ast.Visitor) {
 		return
 	}
 
-	callExpr, ok := node.(*ast.CallExpr)
-	if ok {
-		switch callT := callExpr.Fun.(type) {
-		case *ast.SelectorExpr:
-			switch xT := callT.X.(type) {
-			case *ast.Ident:
-				if xT.Obj == nil {
-					v.CallStats.inc(xT.Name, callT.Sel.Name)
-				}
+	switch nodeObj := node.(type) {
+	case *ast.SelectorExpr:
+		switch xObj := nodeObj.X.(type) {
+		case *ast.Ident:
+			if xObj.Obj == nil {
+				v.CallStats.inc(xObj.Name, nodeObj.Sel.Name)
 			}
 		}
 	}
