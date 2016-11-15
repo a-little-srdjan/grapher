@@ -1,6 +1,7 @@
 package pkg_graph
 
 import (
+	"fmt"
 	"go/ast"
 	"go/types"
 )
@@ -44,6 +45,14 @@ func NewPkgNode(root *types.Package, files []*ast.File) *PkgNode {
 	return top
 }
 
+func (n *PkgNode) FullName() string {
+	return n.Node.Path()
+}
+
+func (n *PkgNode) ShortName() string {
+	return n.Node.Name()
+}
+
 func (n *PkgNode) TotalFuncDecls() int {
 	nFuncs := 0
 	for _, file := range n.Files {
@@ -62,6 +71,20 @@ func (n *PkgNode) CalcCallStats() {
 		counter := NewCallCounter(n.CallStats)
 		ast.Walk(counter, file)
 	}
+}
+
+func (n *PkgNode) CallStatsEdge(pkg PkgName) int {
+	entry, ok := n.CallStats[pkg]
+	if !ok {
+		return 0
+	}
+	acc := 0
+	for f, i := range entry {
+		fmt.Printf("%v %v %v %v \n", n.FullName(), pkg, f, i)
+		acc += i
+	}
+
+	return acc
 }
 
 type CallCounter struct {

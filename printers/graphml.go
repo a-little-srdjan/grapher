@@ -35,6 +35,7 @@ func (p *GraphMLPrinter) WriteBuffer() *bytes.Buffer {
 
 func (p *GraphMLPrinter) WriteKeyElement() {
 	p.buffer.WriteString(`<key for="node" id="d1" yfiles.type="nodegraphics"/>`)
+	p.buffer.WriteString(`<key attr.name="weight" attr.type="int" for="edge" id="d2"><default>1</default></key>`)
 }
 
 func (p *GraphMLPrinter) WriteGraphElement() {
@@ -50,7 +51,8 @@ func (p *GraphMLPrinter) WriteGraphElement() {
 	id := 0
 	for pname, pnode := range p.graph.Nodes {
 		for _, cnode := range pnode.Children {
-			p.WriteEdgeElement(strconv.Itoa(id), pname, cnode.Node.Path())
+			weight := pnode.CallStatsEdge(pkg_graph.PkgName(cnode.ShortName()))
+			p.WriteEdgeElement(strconv.Itoa(id), pname, cnode.FullName(), weight)
 			id++
 		}
 	}
@@ -66,8 +68,10 @@ func (p *GraphMLPrinter) WriteNodeElement(name string, size float64) {
 	p.buffer.WriteString(`</y:ShapeNode></data></node>`)
 }
 
-func (p *GraphMLPrinter) WriteEdgeElement(id, source, target string) {
-	p.buffer.WriteString(`<edge id="` + id + `" source="` + source + `" target="` + target + `"/>`)
+func (p *GraphMLPrinter) WriteEdgeElement(id, source, target string, weight int) {
+	p.buffer.WriteString(`<edge id="` + id + `" source="` + source + `" target="` + target + `">`)
+	p.buffer.WriteString(`<data key="d2">` + fmt.Sprintf("%d", weight) + `</data>`)
+	p.buffer.WriteString(`</edge>`)
 }
 
 var graphMLPrefix = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>

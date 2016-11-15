@@ -66,7 +66,7 @@ func (p *PrologPrinter) WriteEDB() {
 		prologStmt(p.buffer, atomStmt("pkg", name))
 
 		for _, cnode := range node.Children {
-			prologStmt(p.buffer, atomStmt("imports", name, cnode.Node.Path()))
+			prologStmt(p.buffer, atomStmt("imports", name, cnode.FullName()))
 		}
 
 		nests := strings.Split(name, "/")
