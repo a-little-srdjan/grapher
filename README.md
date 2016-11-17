@@ -35,11 +35,13 @@ analysis only applies if the code base has some logical groupings amongst packag
 
 ## Usage and Examples
 Flags:
-* _pkgs_ : root pkgs for the analysis
-* _outputFile_ 
-* _permit_ : regex pattern that has to be part of the pkg name to have the pkg included
-* _deny_ : regex pattern that must not be part of the pkg name to have the pkg included
-* _includeStdLib_ : include std lib pkgs in the graph
+* _pkgs_ : starting _root_ packages
+* _outputFile_ : file name for the two output files. The output extensions are _.graphml_ and _.pl_
+* _permit_ : regex pattern that has to be part of the package name in order to include it in the graph
+* _deny_ : regex pattern that must not be part of the package name in order to include it in the graph
+* _includeStdLib_ : include stdLib packages in the graph
+
+Given a package named `n`, then `n` 
 
 1. build the tool 
 2. `grapher -deny=vendor -pkgs=code.wirelessregistry.com/data/readers/queries -output=depgraph`
