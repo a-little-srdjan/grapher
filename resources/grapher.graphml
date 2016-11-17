@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:java="http://www.yworks.com/xml/yfiles-common/1.0/java" xmlns:sys="http://www.yworks.com/xml/yfiles-common/markup/primitives/2.0" xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:y="http://www.yworks.com/xml/graphml" xmlns:yed="http://www.yworks.com/xml/yed/3" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml/1.1/ygraphml.xsd">
+  <!--Created by yEd 3.16.2.1-->
+  <key for="port" id="d0" yfiles.type="portgraphics"/>
+  <key for="port" id="d1" yfiles.type="portgeometry"/>
+  <key for="port" id="d2" yfiles.type="portuserdata"/>
+  <key attr.name="url" attr.type="string" for="node" id="d3"/>
+  <key attr.name="description" attr.type="string" for="node" id="d4"/>
+  <key for="node" id="d5" yfiles.type="nodegraphics"/>
+  <key for="graphml" id="d6" yfiles.type="resources"/>
+  <key attr.name="weight" attr.type="int" for="edge" id="d7">
+    <default>1</default>
+  </key>
+  <key attr.name="url" attr.type="string" for="edge" id="d8"/>
+  <key attr.name="description" attr.type="string" for="edge" id="d9"/>
+  <key for="edge" id="d10" yfiles.type="edgegraphics"/>
+  <graph edgedefault="directed" id="G">
+    <node id="n0">
+      <data key="d4"/>
+      <data key="d5">
+        <y:ShapeNode>
+          <y:Geometry height="45.65" width="45.65" x="19.175" y="-69.825"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="c" textColor="#000000" verticalTextPosition="bottom" visible="true" width="211.4921875" x="-82.92109375" y="13.75859375">github.com/a-little-srdjan/grapher</y:NodeLabel>
+          <y:Shape type="ellipse"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+    <node id="n1">
+      <data key="d4"/>
+      <data key="d5">
+        <y:ShapeNode>
+          <y:Geometry height="68.23" width="68.23" x="-178.15584939913185" y="-172.86741873342828"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="c" textColor="#000000" verticalTextPosition="bottom" visible="true" width="279.853515625" x="-105.81175781249999" y="25.04859375000001">github.com/a-little-srdjan/grapher/pkg_graph</y:NodeLabel>
+          <y:Shape type="ellipse"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+    <node id="n2">
+      <data key="d4"/>
+      <data key="d5">
+        <y:ShapeNode>
+          <y:Geometry height="102.1" width="102.1" x="159.74804415802294" y="-22.825000000000003"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="c" textColor="#000000" verticalTextPosition="bottom" visible="true" width="180.255859375" x="-39.0779296875" y="41.98359375">golang.org/x/tools/go/loader</y:NodeLabel>
+          <y:Shape type="ellipse"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+    <node id="n3">
+      <data key="d4"/>
+      <data key="d5">
+        <y:ShapeNode>
+          <y:Geometry height="141.61" width="141.61" x="315.5750349051341" y="159.86894440358307"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="c" textColor="#000000" verticalTextPosition="bottom" visible="true" width="203.271484375" x="-30.830742187499993" y="61.73859375000001">golang.org/x/tools/go/ast/astutil</y:NodeLabel>
+          <y:Shape type="ellipse"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+    <node id="n4">
+      <data key="d4"/>
+      <data key="d5">
+        <y:ShapeNode>
+          <y:Geometry height="152.9" width="152.9" x="301.9136594687682" y="-320.04996139860543"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="c" textColor="#000000" verticalTextPosition="bottom" visible="true" width="192.00390625" x="-19.55195312500001" y="67.38359374999999">golang.org/x/tools/go/buildutil</y:NodeLabel>
+          <y:Shape type="ellipse"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+    <node id="n5">
+      <data key="d4"/>
+      <data key="d5">
+        <y:ShapeNode>
+          <y:Geometry height="79.52" width="79.52" x="-182.17802108515852" y="100.65761737825972"/>
+          <y:Fill color="#CCCCFF" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="c" textColor="#000000" verticalTextPosition="bottom" visible="true" width="263.365234375" x="-91.92261718750004" y="30.69359374999999">github.com/a-little-srdjan/grapher/printers</y:NodeLabel>
+          <y:Shape type="ellipse"/>
+        </y:ShapeNode>
+      </data>
+    </node>
+    <edge id="e0" source="n0" target="n1">
+      <data key="d7">3</data>
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="3.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="two_pos" modelPosition="head" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" verticalTextPosition="bottom" visible="true" width="11.587890625" x="-72.69856579758839" y="-55.98660074943996">3<y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          </y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e1" source="n0" target="n5">
+      <data key="d7">4</data>
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="4.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="two_pos" modelPosition="head" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" verticalTextPosition="bottom" visible="true" width="11.587890625" x="-73.66198401941108" y="42.95092871120959">4<y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          </y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e2" source="n0" target="n2">
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="two_pos" modelPosition="head" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" verticalTextPosition="bottom" visible="true" width="11.587890625" x="43.6441728358474" y="-0.682748726691699">1<y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          </y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e3" source="n1" target="n2">
+      <data key="d7">2</data>
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="-16.716571798686402" sy="-29.011344689688116" tx="21.05161976206088" ty="-43.50119482084028">
+            <y:Point x="-162.4734908712606" y="-180.36393685690834"/>
+            <y:Point x="-161.72225740594993" y="-194.33874123777417"/>
+            <y:Point x="-158.1783651940778" y="-209.4895099629787"/>
+            <y:Point x="-151.54066032080524" y="-225.50990602932464"/>
+            <y:Point x="-141.55652434945426" y="-241.98554607745984"/>
+            <y:Point x="-128.0490317399224" y="-258.401401950136"/>
+            <y:Point x="-110.94457065963267" y="-274.15807627192305"/>
+            <y:Point x="-90.29797036018842" y="-288.5973165727844"/>
+            <y:Point x="-66.31187161285031" y="-301.03613715370255"/>
+            <y:Point x="-39.34717614075942" y="-310.80776580107624"/>
+            <y:Point x="-9.921985728382417" y="-317.306488194566"/>
+            <y:Point x="21.302513356800528" y="-320.0325260129081"/>
+            <y:Point x="53.54934476653216" y="-318.63255314794094"/>
+            <y:Point x="85.96472558727213" y="-312.93148040697366"/>
+            <y:Point x="117.6656852900539" y="-302.9517890774405"/>
+            <y:Point x="147.79201398425457" y="-288.91792273494053"/>
+            <y:Point x="175.55751915661577" y="-271.24489620649973"/>
+            <y:Point x="200.2955336979758" y="-250.51210342448996"/>
+            <y:Point x="221.49428115913918" y="-227.42501327901167"/>
+            <y:Point x="238.8189613765413" y="-202.7687629777788"/>
+            <y:Point x="252.11906032469705" y="-177.35839312029663"/>
+            <y:Point x="261.42114171099854" y="-151.99053013493756"/>
+            <y:Point x="266.90897051854574" y="-127.4007456834609"/>
+            <y:Point x="268.89402699582934" y="-104.2297524955977"/>
+            <y:Point x="267.78015868474563" y="-83.0002452470864"/>
+            <y:Point x="264.02625674774936" y="-64.10479853795675"/>
+            <y:Point x="258.1104945778332" y="-47.80400180723681"/>
+            <y:Point x="250.49896241855075" y="-34.233093836057876"/>
+            <y:Point x="241.62063362252619" y="-23.414832099875365"/>
+          </y:Path>
+          <y:LineStyle color="#000000" type="line" width="2.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="two_pos" modelPosition="tail" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" verticalTextPosition="bottom" visible="true" width="11.587890625" x="316.7253799737555" y="-105.98989410222555">2<y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          </y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e4" source="n2" target="n3">
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="43.491990056133176" sy="-2.823809581597704" tx="-11.00804467790715" ty="-37.36726088973694">
+            <y:Point x="291.67185931353924" y="57.171460251589096"/>
+            <y:Point x="324.9739261292751" y="96.11257123014731"/>
+            <y:Point x="353.1884096320296" y="141.70560386165124"/>
+          </y:Path>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="two_pos" modelPosition="head" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" verticalTextPosition="bottom" visible="true" width="11.587890625" x="58.182000226774335" y="78.14328325512778">1<y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          </y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e5" source="n2" target="n4">
+      <data key="d7">2</data>
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="2.754136358632934" sy="-40.22179068355675" tx="-10.14546758178301" ty="36.991713495112805">
+            <y:Point x="252.7933758501599" y="-37.472004237676245"/>
+            <y:Point x="288.8297958725062" y="-70.1312940060458"/>
+            <y:Point x="320.6861892928435" y="-109.57210871923675"/>
+            <y:Point x="347.4367346839807" y="-155.27474442526307"/>
+          </y:Path>
+          <y:LineStyle color="#000000" type="line" width="2.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="two_pos" modelPosition="head" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" verticalTextPosition="bottom" visible="true" width="11.587890625" x="88.70032431163736" y="-121.10910886900285">2<y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          </y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e6" source="n5" target="n1">
+      <data key="d7">4</data>
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
+            <y:Point x="-153.11211346639018" y="149.5017732373103"/>
+            <y:Point x="-165.2921895527548" y="156.7744223085649"/>
+            <y:Point x="-178.99662803938534" y="161.7980277738477"/>
+            <y:Point x="-194.1511429652382" y="164.13715778015708"/>
+            <y:Point x="-210.54947594971196" y="163.38085962319013"/>
+            <y:Point x="-227.84367758549985" y="159.17224594984435"/>
+            <y:Point x="-245.54681157536814" y="151.24352014052704"/>
+            <y:Point x="-263.0501388967825" y="139.45301483409605"/>
+            <y:Point x="-279.65544853949774" y="123.81945233057061"/>
+            <y:Point x="-294.62127015982463" y="104.54790596446168"/>
+            <y:Point x="-307.21948643171197" y="82.04213630101906"/>
+            <y:Point x="-316.7967679029332" y="56.8992331743925"/>
+            <y:Point x="-322.8337619923847" y="29.884727310566372"/>
+            <y:Point x="-324.9945090194403" y="1.8892080914859495"/>
+            <y:Point x="-323.1593755117108" y="-26.129539365701344"/>
+            <y:Point x="-317.4368519346873" y="-53.212403848860774"/>
+            <y:Point x="-308.1525215400422" y="-78.4649503964266"/>
+            <y:Point x="-295.8168019804563" y="-101.11566218048424"/>
+            <y:Point x="-281.07603696867534" y="-120.5598943067469"/>
+            <y:Point x="-264.65360062504" y="-136.385448623147"/>
+            <y:Point x="-247.28852906316592" y="-148.378645542757"/>
+            <y:Point x="-229.67876844785556" y="-156.51264683941463"/>
+            <y:Point x="-212.4346636447897" y="-160.9220332833139"/>
+            <y:Point x="-196.0462313667255" y="-161.8689224210778"/>
+            <y:Point x="-180.86554657142662" y="-159.70613233184255"/>
+            <y:Point x="-167.1036313130616" y="-154.8421900494709"/>
+            <y:Point x="-154.8398287322614" y="-147.71163437390055"/>
+          </y:Path>
+          <y:LineStyle color="#000000" type="line" width="4.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" horizontalTextPosition="center" iconTextGap="4" modelName="two_pos" modelPosition="head" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" verticalTextPosition="bottom" visible="true" width="11.587890625" x="-161.75131245971176" y="-182.0721157103499">4<y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
+          </y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+  </graph>
+  <data key="d6">
+    <y:Resources/>
+  </data>
+</graphml>
