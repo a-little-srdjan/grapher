@@ -8,12 +8,14 @@ inter-package dependencies. Finally, all package links can be checked against co
 using logic programming.
 
 In detail, Grapher constructs the following graph:
+
 1. Nodes are packages.
 2. Size of a node represent the number of functions declared in that package, normalized accross all nodes (packages).
 3. Directed edges represent package imports.
 4. Edge weights represent the number of times the imported package has been used in variable definitions and function calls. 
 
 The output consists of two declarative specifications:
+
 1. [GraphML](http://graphml.graphdrawing.org/) specification
 2. [Prolog](https://en.wikipedia.org/wiki/Prolog) program. 
 
