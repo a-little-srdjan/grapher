@@ -44,12 +44,13 @@ Flags:
 Given a package named `n`, then `n` is included in the graph unless either: 1) the permit filter is set, and the filter does not match `n`, 
 or 2) the deny filter is set, and the filter does match `n`.
 
-1. Build the tool. 
-2. Run the tool.
+### Running grapher on itself
 	* `grapher -pkgs=github.com/a-little-srdjan/grapher -output=grapher` 
 		![grapher simple exampleA](resources/grapher.png "Grapher on grapher")
 	* `grapher -deny="x|vendor" -pkgs=github.com/a-little-srdjan/grapher -output=grapher-no-x`
 		![grapher simple exampleB](resources/grapher-no-x.png "Grapher on grapher and excluding the x packages")
+
+### Running grapher on blevesearch
 
 ## TODO
 1. Increase the edge weights with method calls. That is, currently, expressions such as
