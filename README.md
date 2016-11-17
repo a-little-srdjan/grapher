@@ -57,6 +57,10 @@ Simple usage examples of running grapher on its own package structure:
 
 ### Running grapher on blevesearch
 
+`grapher -deny="x|vendor" -pkgs=github.com/blevesearch/bleve -output=resources/bleve`
+
+![bleve](resources/bleve.png "Grapher on bleve")
+
 ## TODO
 1. Increase the edge weights with method calls. That is, currently, expressions such as
 `varName.Method()` are not taken into account for edge weights.
