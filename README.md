@@ -10,7 +10,7 @@ using logic programming.
 In detail, Grapher constructs the following graph:
 
 1. Nodes are packages.
-2. The size of a node represents the number of functions declared in that package, normalized accross all nodes (packages).
+2. The size of a node represents the number of functions declared in that package, normalized accross all packages.
 3. Directed edges represent package imports.
 4. Edge weights represent the number of times the imported package has been used in variable definitions and function calls. 
 
@@ -25,10 +25,10 @@ The GraphML spec can be examined by [yEd](http://www.yworks.com/products/yed). W
 to find package clusters and outliers. This can help confirm/refute different hypothesis that we may have about our code base.
 For example, lack of distinct clusters indicate a code base with no structure and layering, a high number of outliers may indicate
 a need to combine different packages, etc. Finally, we can also look at two centrality measures: _edge_ and _betweeness_, to 
-find influential nodes.
+find influential nodes and confirm whether the code base should in fact have super nodes.
 
 The Prolog program (see [Swi-Prolog](http://www.swi-prolog.org/), an easy-to-install interpreter) contains the declarative specification
-of the package dependencies, and the directory structure. We can now add constraints on whether the logical separation of packages within
+of the package dependencies, and the directory structure. We can then add constraints to check whether the logical separation of packages within
 different layers (such as _endpoints_, _services_, _frameworks_, etc) is broken with the respect to the dependency structure. Clearly, this
 analysis only applies if the code base has some logical groupings amongst packages, and the code is not alloed to flow from _high_ packages
 (e.g. endpoints) to _low_ packages (e.g. crypto).
