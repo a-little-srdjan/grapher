@@ -49,6 +49,10 @@ or 2) the deny filter is set, and the filter does match `n`.
 	* `grapher -pkgs=github.com/a-little-srdjan/grapher -output=grapher`
 	* `grapher -deny="x|vendor" -pkgs=github.com/a-little-srdjan/grapher -output=grapher-no-x`
 
+![grapher simple exampleA](resources/grapher.png "Grapher on grapher")
+
+![grapher simple exampleB](resources/grapher-no-x.png "Grapher on grapher and excluding the x packages")
+
 ## TODO
 1. Increase the edge weights with method calls. That is, currently, expressions such as
 `varName.Method()` are not taken into account for edge weights.
