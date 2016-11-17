@@ -1,20 +1,35 @@
 # Grapher
-Yet Another Go Analysis Tool (_feature set not complete_)
+Yet Another Tool for Analyzing Go Packages
 
 ## Overview
-Grapher takes as input a set of Go packages and outputs a 
-GraphML, and a Prolog specification. These outputs form the basis for graph analysis
-and constraint checking over the input package structure.
+Grapher is intended to aid code reviews and code analysis. Its focus is on
+analyzing sizes of Go packages (in terms of functionality) and weights of
+inter-package dependencies. Finally, all package links can be checked against constraints
+using logic programming.
 
-1. GraphML spec can be examined by [yEd](http://www.yworks.com/products/yed).
-The generated nodes' sizes indicate how much functionality is contained in each 
-package (in terms of declared functions). We can use yEd to look at two centrality 
-measures: _edge_ and _betweeness_, to find influential packages, and to find clusters 
-and supernodes.
+In detail, Grapher constructs the following graph:
+1. Nodes are packages.
+2. Size of a node represent the number of functions declared in that package, normalized accross all nodes (packages).
+3. Directed edges represent package imports.
+4. Edge weights represent the number of times the imported package has been used in variable definitions and function calls. 
 
-2. Prolog spec can be run by [Swi-Prolog](http://www.swi-prolog.org/). 
-Using Prolog, we can add constraints over groupings of packages. We can then check 
-whether we have code flowing from _high-level_ packages (e.g. microservices) to low-level packages (e.g. crypto libs).
+The output consists of two declarative specifications:
+1. [GraphML](http://graphml.graphdrawing.org/) specification
+2. [Prolog](https://en.wikipedia.org/wiki/Prolog) program. 
+
+These outputs form the basis for graph analysis and constraint checking over the package graph.
+
+The GraphML spec can be examined by [yEd](http://www.yworks.com/products/yed). We can apply different grouping algorithms
+to find package clusters and outliers. This can help confirm/refute different hypothesis that we may have about our code base.
+For example, lack of distinct clusters indicate a code base with no structure and layering, a high number of outliers may indicate
+a need to combine different packages, etc. Finally, we can also look at two centrality measures: _edge_ and _betweeness_, to 
+find influential nodes.
+
+The Prolog program (see [Swi-Prolog](http://www.swi-prolog.org/), an easy-to-install interpreter) contains the declarative specification
+of the package dependencies, and the directory structure. We can now add constraints on whether the logical separation of packages within
+different layers (such as _endpoints_, _services_, _frameworks_, etc) is broken with the respect to the dependency structure. Clearly, this
+analysis only applies if the code base has some logical groupings amongst packages, and the code is not alloed to flow from _high_ packages
+(e.g. endpoints) to _low_ packages (e.g. crypto).
 
 ## Usage and Examples
 Flags:
@@ -27,10 +42,10 @@ Flags:
 1. build the tool 
 2. `grapher -deny=vendor -pkgs=code.wirelessregistry.com/data/readers/queries -output=depgraph`
 
-## Missing Features
-1. Edges between packages require weights to denote the normalized number of how many times
-functions from a parent package call functions from a child package.
-
+## TODO
+1. Increase the edge weights with method calls. That is, currently, expressions such as
+`varName.Method()` are not taken into account for edge weights.
+ 
 ## Dependencies
 1. [go loader tool](https://godoc.org/golang.org/x/tools/go/loader)
 
@@ -39,3 +54,5 @@ functions from a parent package call functions from a child package.
 * [Visualising dependencies](https://dave.cheney.net/2014/11/21/visualising-dependencies) by Dave Cheney
 * [Building the simplest Go static analysis tool](https://blog.cloudflare.com/building-the-simplest-go-static-analysis-tool/) by Filippo Valsorda
 
+## Feedback
+Please send all comments and suggestion to _srdjan.marinovic@gmail.com_
