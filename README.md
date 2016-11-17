@@ -45,8 +45,10 @@ Given a package named `n`, then `n` is included in the graph unless either: 1) t
 or 2) the deny filter is set, and the filter does match `n`.
 
 ### Running grapher on itself
+	
 	* `grapher -pkgs=github.com/a-little-srdjan/grapher -output=grapher` 
 		![grapher simple exampleA](resources/grapher.png "Grapher on grapher")
+
 	* `grapher -deny="x|vendor" -pkgs=github.com/a-little-srdjan/grapher -output=grapher-no-x`
 		![grapher simple exampleB](resources/grapher-no-x.png "Grapher on grapher and excluding the x packages")
 
