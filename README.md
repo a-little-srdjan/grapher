@@ -62,4 +62,4 @@ or 2) the deny filter is set, and the filter does match `n`.
 * [Building the simplest Go static analysis tool](https://blog.cloudflare.com/building-the-simplest-go-static-analysis-tool/) by Filippo Valsorda
 
 ## Feedback
-Please send all comments and suggestion to _srdjan.marinovic@gmail.com_
+Please send all comments and suggestions to _srdjan.marinovic@gmail.com_
