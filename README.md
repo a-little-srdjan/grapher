@@ -57,7 +57,7 @@ Simple usage examples of running grapher on its own package structure:
 
 ### Running grapher on blevesearch
 
-`grapher -deny="x|vendor" -pkgs=github.com/blevesearch/bleve -output=resources/bleve`
+`grapher -deny="golang|vendor" -pkgs=github.com/blevesearch/bleve -output=resources/bleve`
 
 ![bleve radial](resources/bleve_radial.png "Grapher on bleve")
 
