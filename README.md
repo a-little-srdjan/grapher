@@ -61,6 +61,10 @@ Simple usage examples of running grapher on its own package structure:
 
 ![bleve radial](resources/bleve_radial.png "Grapher on bleve")
 
+![bleve natural](resources/bleve_natural.png "Grapher on bleve")
+
+![bleve circle](resources/bleve_circle.png "Grapher on bleve")
+
 ## TODO
 1. Increase the edge weights with method calls. That is, currently, expressions such as
 `varName.Method()` are not taken into account for edge weights.
