@@ -45,6 +45,7 @@ Given a package named `n`, then `n` is included in the graph unless either: 1) t
 or 2) the deny filter is set, and the filter does match `n`.
 
 ### Running grapher on itself
+Simple usage examples of running grapher on its own package structure:
 	
 	* `grapher -pkgs=github.com/a-little-srdjan/grapher -output=grapher` 
 		![grapher simple exampleA](resources/grapher.png "Grapher on grapher")
