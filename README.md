@@ -10,7 +10,7 @@ using logic programming.
 In detail, Grapher constructs the following graph:
 
 1. Nodes are packages.
-2. Size of a node represent the number of functions declared in that package, normalized accross all nodes (packages).
+2. The size of a node represents the number of functions declared in that package, normalized accross all nodes (packages).
 3. Directed edges represent package imports.
 4. Edge weights represent the number of times the imported package has been used in variable definitions and function calls. 
 
