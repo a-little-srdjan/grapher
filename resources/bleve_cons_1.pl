@@ -7,5 +7,3 @@ mark(2, "github.com/blevesearch/bleve/index/upsidedown").
 exception("github.com/blevesearch/bleve/index", "github.com/blevesearch/bleve/index/smolder").
 exception("github.com/blevesearch/bleve/index", "github.com/blevesearch/bleve/index/store").
 exception("github.com/blevesearch/bleve/index", "github.com/blevesearch/bleve/index/upsidedown").
-
-broken(X, Y) :- violation(X, Y), \+ exception(X, Y).
