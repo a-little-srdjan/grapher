@@ -42,10 +42,12 @@ Flags:
 * _includeStdLib_ : include stdLib packages in the graph
 
 Given a package named `n`, then `n` is included in the graph unless either: 1) the permit filter is set, and the filter does not match `n`, 
-or 2) the deny filter is set, and the fileter does match `n`.
+or 2) the deny filter is set, and the filter does match `n`.
 
 1. Build the tool. 
-2. Run the tool. E.g.: `grapher -deny=vendor -pkgs= -output=bleve`
+2. Run the tool.
+	* `grapher -deny=vendor -pkgs= -output=bleve`
+	* `grapher -deny="gen|vendor" -pkgs=code.wirelessregistry.com/endpoints/daq/api/dendpoint -output=resources/dendpoint`
 
 ## TODO
 1. Increase the edge weights with method calls. That is, currently, expressions such as
