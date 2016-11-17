@@ -59,7 +59,7 @@ Simple usage examples of running grapher on its own package structure:
 
 `grapher -deny="x|vendor" -pkgs=github.com/blevesearch/bleve -output=resources/bleve`
 
-![bleve](resources/bleve.png "Grapher on bleve")
+![bleve radial](resources/bleve_radial.png "Grapher on bleve")
 
 ## TODO
 1. Increase the edge weights with method calls. That is, currently, expressions such as
