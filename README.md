@@ -1,4 +1,4 @@
-# Grapher
+# grapher
 Yet Another Tool for Analyzing Go Packages
 
 ## Overview
@@ -41,10 +41,11 @@ Flags:
 * _deny_ : regex pattern that must not be part of the package name in order to include it in the graph
 * _includeStdLib_ : include stdLib packages in the graph
 
-Given a package named `n`, then `n` 
+Given a package named `n`, then `n` is included in the graph unless either: 1) the permit filter is set, and the filter does not match `n`, 
+or 2) the deny filter is set, and the fileter does match `n`.
 
-1. build the tool 
-2. `grapher -deny=vendor -pkgs=code.wirelessregistry.com/data/readers/queries -output=depgraph`
+1. Build the tool. 
+2. Run the tool. E.g.: `grapher -deny=vendor -pkgs= -output=bleve`
 
 ## TODO
 1. Increase the edge weights with method calls. That is, currently, expressions such as
