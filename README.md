@@ -70,7 +70,7 @@ is very small compared to the rest of the grapher code. Thirdly, the grapher pac
 
 ![grapher simple exampleB](resources/grapher-no-x.png "Grapher on grapher and excluding the x packages")
 
-### Running grapher on blevesearch
+### Running grapher on Bleve
 To spice up the examples, we now run grapher on [Bleve](https://github.com/blevesearch/bleve), a search system ala Lucene written entirely in Go.
 
 `grapher -deny="golang|vendor" -pkgs=github.com/blevesearch/bleve -output=resources/bleve`
@@ -90,9 +90,48 @@ The _natural_ layout brings out super nodes in a graph. The graph above specific
 
 The _circular_ layout is akin to the _chord_ layout often seen in [D3](https://github.com/d3/d3-chord).
 
-#### Checking package constraints
+#### Checking Bleve's constraints
 
+Arguably, most code bases have stronger (logical) constraints than acylicity (enforced by Go itself). For example, informally a Bleve developer told me
+that the index package should not import any of the children of the analysis package. Similarly the search package ought not to import any of the children 
+of the index package, except for the store package. These logical constraints ensure that correct interfaces are used and not their concrete instantiations.
+There is currently no way to make such enforcements in Go, since either a functionality is strictly private or fully public. 
 
+Note, I do not think that Go should implement additional features for this, I strongly believe that these checks, given that they are necessarily tied to a 
+particular code base, ought to always be checked using analysis.
+
+Coming from the computational logic world, it felt natural to pick Prolog as a language to encode constraints, as well as perform graph reasoning 
+(given that Prolog is geared towards transitional closures). I accept that this choice can be disputed. The first constraint that we encode is:
+
+	violation("bleve", Y) :- dependency(Y, "github.com/blevesearch/bleve").
+ 
+It says that a violation named _bleve_ occurs whenever some package imports the bleve package. The way Prolog reasons about constraints is that it will try
+to find a particular dependency in the graph that will satisfy the body of the above statement. If it fails to find it, the violation is marked as false.
+For intros and explanations on Prolog please see [link](http://www.doc.gold.ac.uk/~mas02gw/prolog_tutorial/prologpages/).  
+
+In a similar fashion, we can encode further violations:
+
+	violation("searching", Y) :- dependency("github.com/blevesearch/bleve/search", Y), nested("github.com/blevesearch/bleve/index", Y).
+	violation("indexing", Y) :- dependency("github.com/blevesearch/bleve/index", Y), nested("github.com/blevesearch/bleve/analysis", Y).
+
+The _searching_ violation happens if there is a package nested in index that search (transitively) depends on. The second follows a similar idea.
+We also have to encode one exception for the searching violation namely:
+
+	exception("searching", "github.com/blevesearch/bleve/index/store").
+
+Now, we can say that constraints are broken if there are violations and no exceptions:
+
+	broken(X, Y) :- violation(X, Y), \+ exception(X, Y). 
+
+To check for any broken constraints, we can invoke SWI-Prolog:
+
+	swipl resources/bleve.pl resources/bleve_graph_constraints.pl 
+
+and enter the following query:
+
+	:- broken(X, Y).
+ 
+This will list broken constraints if there are any.
 
 ## Planned Work
 1. Increase the edge weights with method calls. That is, currently, expressions such as
