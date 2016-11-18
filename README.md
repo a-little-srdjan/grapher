@@ -89,11 +89,13 @@ top level bleve package has very few dependencies to the analysis packages, as o
 
 ![bleve natural](resources/bleve_natural.png "Grapher on bleve")
 
-The _natural_ layout brings out super nodes in a graph. The graph above specifically reveals the registry package as a super node.
+The _natural_ layout brings out super nodes in a graph. The graph above specifically reveals the search package as a super node, with a strong cluster.
+In addition, we have identified the search/highlight as another super node.
 
 ![bleve circle](resources/bleve_circle.png "Grapher on bleve")
 
-The _circular_ layout is akin to the _chord_ layout often seen in [D3](https://github.com/d3/d3-chord).
+The _circular_ layout is akin to the _chord_ layout often seen in [D3](https://github.com/d3/d3-chord). It is useful for gaining insights into each node's
+import ratios.
 
 #### Checking Bleve's constraints
 
