@@ -56,8 +56,7 @@ func (p *PrologPrinter) WriteLabelIDB() {
 }
 
 func (p *PrologPrinter) WriteConstraintsIDB() {
-	prologStmt(p.buffer, `violation(X, Y) :- dependency(X, Y), label(M, X), label(M2, Y), M \== M2, M < M2.`)
-	prologStmt(p.buffer, `broken(X, Y) :- violation(X, Y), \+ exception(X, Y).`)
+	prologStmt(p.buffer, `label_violation(X, Y) :- dependency(X, Y), label(M, X), label(M2, Y), M \== M2, M < M2.`)
 }
 
 func (p *PrologPrinter) WriteEDB() {
