@@ -75,15 +75,23 @@ To spice up the examples, we now run grapher on [Bleve](https://github.com/bleve
 
 `grapher -deny="golang|vendor" -pkgs=github.com/blevesearch/bleve -output=resources/bleve`
 
+We then open the output GraphML file in yEd to create different layouts.
+
 ![bleve radial](resources/bleve_radial.png "Grapher on bleve")
 
-The graph above is laid out with the _radial_ layout. It is a more condensed version of the hierarchical layout. 
+The graph above is laid out with the _radial_ layout. It is a more condensed version of the hierarchical layout. Interesting to note is that the 
+top level bleve package depends very lightly to the analysis packages, as opposed to the search packages.	 
 
 ![bleve natural](resources/bleve_natural.png "Grapher on bleve")
 
+The _natural_ layout brings out super nodes in a graph. The graph above specifically reveals the registry package as a super node.
+
 ![bleve circle](resources/bleve_circle.png "Grapher on bleve")
 
+The _circular_ layout is akin to the _chord_ layout often seen in [D3](https://github.com/d3/d3-chord).
+
 #### Checking package constraints
+
 
 
 ## Planned Work
