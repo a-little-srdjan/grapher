@@ -80,7 +80,11 @@ We then open the output GraphML file in yEd to create different layouts.
 
 ![bleve radial](resources/bleve_radial.png "Grapher on bleve")
 
-The graph above is laid out with the _radial_ layout. It is a more condensed version of the hierarchical layout. Interesting to note is that the 
+The graph above is laid out with the _radial_ layout. The graphs are best explored in yEd, the pictures are merely here for illustrations.
+It is interesting to note that the registry package is a central node in the cluster, even though the top package bleve has most functionality and most dependencies.
+The picture suggests that the analysis package could embed the registry package. This would make the analysis package most central to bleve.
+
+Interesting to note is that the 
 top level bleve package has very few dependencies to the analysis packages, as opposed to the search packages.
 
 ![bleve natural](resources/bleve_natural.png "Grapher on bleve")
