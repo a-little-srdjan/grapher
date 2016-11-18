@@ -81,7 +81,7 @@ We then open the output GraphML file in yEd to create different layouts.
 ![bleve radial](resources/bleve_radial.png "Grapher on bleve")
 
 The graph above is laid out with the _radial_ layout. It is a more condensed version of the hierarchical layout. Interesting to note is that the 
-top level bleve package depends very lightly to the analysis packages, as opposed to the search packages.	 
+top level bleve package has very few dependencies to the analysis packages, as opposed to the search packages.
 
 ![bleve natural](resources/bleve_natural.png "Grapher on bleve")
 
