@@ -7,11 +7,12 @@ analyzing sizes of Go packages (in terms of functionality) and weights of
 inter-package dependencies. Finally, all package links can be checked against constraints
 using logic programming.
 
-Given these properties, Grapher is intended to aid code reviews and code analysis. I have used to
-understand our own code base that spans multiple endpoints, micro-services, and frameworks. The graphs guide me
-in finding "god-like" packages, unintended (either weak or strong) dependencies, as well as dead packages. 
-Finally, the constraints-checking is part of our automated testing suite. The constraints enforce package
-hiding (see Bleve example below). 
+Given these properties, Grapher is intended to aid code reviews and code analysis. I have used it to
+understand our own code base at [Wireless Registry](http://www.wirelessregistry.com) that spans 
+multiple endpoints, micro-services, and frameworks. The graphs helped me
+identify "god-like" packages, unintended (either weak or strong) dependencies, as well as dead packages. 
+Once anomalies are found, I encode them as formal constraints, and they are added to our automated testing suite. 
+The constraints can encode package hiding (see Bleve example below), package layers, etc. 
 
 In detail, Grapher constructs the following graph:
 
