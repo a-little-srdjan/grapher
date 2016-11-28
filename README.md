@@ -82,9 +82,7 @@ We then open the output GraphML file in yEd to create different layouts.
 
 The graph above is laid out with the _radial_ layout. The graphs are best explored in yEd, the pictures are merely here for illustrations.
 It is interesting to note that the registry package is a central node in the cluster, even though the top package bleve has most functionality and most dependencies.
-The picture suggests that the analysis package could embed the registry package. This would make the analysis package most central to bleve.
-
-Interesting to note is that the 
+The picture suggests that the analysis package could embed the registry package. This would make the analysis package most central to bleve. Slightly surprisingly, the 
 top level bleve package has very few dependencies to the analysis packages, as opposed to the search packages.
 
 ![bleve natural](resources/bleve_natural.png "Grapher on bleve")
@@ -99,22 +97,22 @@ import ratios.
 
 #### Checking Bleve's constraints
 
-Arguably, most code bases have stronger (logical) constraints than acylicity (enforced by Go itself). For example, informally a Bleve developer told me
+Arguably, most code bases have stronger (logical) constraints than acylicity (enforced by Go itself). For example, informally a Bleve developer said
 that the index package should not import any of the children of the analysis package. Similarly the search package ought not to import any of the children 
-of the index package, except for the store package. These logical constraints ensure that correct interfaces are used and not their concrete instantiations.
+of the index package, except for the store package. These logical constraints ensure that only the interfaces are used and not their concrete instantiations.
 There is currently no way to make such enforcements in Go, since either a functionality is strictly private or fully public. 
 
-Note, I do not think that Go should implement additional features for this, I strongly believe that these checks, given that they are necessarily tied to a 
-particular code base, ought to always be checked using analysis.
+I do not think that Go should implement additional features for this, I believe that these checks, given that they are necessarily tied to a 
+particular code base, ought to be checked using automated analysis.
 
-Coming from the computational logic world, it felt natural to pick Prolog as a language to encode constraints, as well as perform graph reasoning 
-(given that Prolog is geared towards transitional closures). I accept that this choice can be disputed. The first constraint that we encode is:
+Coming from the computational logic world, it felt natural to pick Prolog as the language to encode constraints, as well as perform graph reasoning 
+(given that Prolog can compute transitional closures). The first constraint that we encode is:
 
 	violation("bleve", Y) :- dependency(Y, "github.com/blevesearch/bleve").
  
 It says that a violation named _bleve_ occurs whenever some package imports the bleve package. The way Prolog reasons about constraints is that it will try
 to find a particular dependency in the graph that will satisfy the body of the above statement. If it fails to find it, the violation is marked as false.
-For intros and explanations on Prolog please see [link](http://www.doc.gold.ac.uk/~mas02gw/prolog_tutorial/prologpages/).  
+For intros and explanations on Prolog see [link](http://www.doc.gold.ac.uk/~mas02gw/prolog_tutorial/prologpages/).  
 
 In a similar fashion, we can encode further violations:
 
