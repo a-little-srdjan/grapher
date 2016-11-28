@@ -65,7 +65,7 @@ Simple usage examples of running grapher on its own package structure:
 
 `grapher -deny="x|vendor" -pkgs=github.com/a-little-srdjan/grapher -output=grapher-no-x` 
 
-Unsurprisingly, there is not a lot of excitement in these diagrams :) They are, however, useful to note the key graphing elements. Firstly,
+Unsurprisingly, there is not a lot of excitement in these diagrams :) They are, however, useful to see the key elements of a package graph. Firstly,
 note how smaller in functionality grapher packages are compared to the _tools_ packages (as one would expect). Secondly, the grapher package 
 is very small compared to the rest of the grapher code. Thirdly, the grapher packages form a strong cluster.  
 
