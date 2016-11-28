@@ -30,8 +30,8 @@ These outputs form the basis for graph analysis and constraint checking over the
 
 The generated GraphML spec can be examined by [yEd](http://www.yworks.com/products/yed). We can apply different grouping algorithms
 to find package clusters and outliers. This can help confirm/refute different hypothesis that we may have about our code base.
-For example, lack of distinct clusters indicate a code base with no structure and layering, a high number of outliers may indicate
-a need to combine different packages, etc. Finally, we can also look at two centrality measures: _edge_ and _betweeness_, to 
+For example, the lack of distinct clusters indicates a code base with no structure and layering, a high number of outliers may indicate
+a need to combine different packages, etc. We can also look at two centrality measures: _edge_ and _betweeness_, to 
 find influential nodes and confirm whether the code base should in fact have super nodes.
 
 The generated Prolog program contains the declarative specification
