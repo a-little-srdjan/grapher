@@ -1,5 +1,5 @@
 # grapher
-Yet Another Tool for Analyzing Go Packages
+Graph analysis for Go packages
 
 ## Overview
 Grapher focuses on
