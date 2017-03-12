@@ -2,19 +2,7 @@
 Graph analysis for Go packages
 
 ## Overview
-Grapher focuses on
-analyzing sizes of Go packages (in terms of functionality) and weights of
-inter-package dependencies. Finally, all package links can be checked against constraints
-using logic programming.
-
-Given these properties, Grapher is intended to aid code reviews and code analysis. I have used it to
-understand our own code base at [Wireless Registry](http://www.wirelessregistry.com) that spans 
-multiple endpoints, micro-services, and frameworks. The graphs helped me
-identify "god-like" packages, unintended (either weak or strong) dependencies, as well as dead packages. 
-Once anomalies are found, I encode them as formal constraints, and they are added to our automated testing suite. 
-The constraints can encode package hiding (see Bleve example below), package layers, etc. 
-
-In detail, Grapher constructs the following graph:
+Grapher analyzes dependencies in a Go codebase, and its main goal is to prevent spaghetti or ball-of-mud codebases. Grapher constructs the graph of a given codebase where:
 
 1. Nodes are packages.
 2. The size of a node represents the number of functions declared in that package, normalized across all packages.
@@ -25,8 +13,6 @@ The output consists of two declarative specifications:
 
 1. [GraphML](http://graphml.graphdrawing.org/) specification
 2. [Prolog](https://en.wikipedia.org/wiki/Prolog) program. 
-
-These outputs form the basis for graph analysis and constraint checking over the package graph.
 
 The generated GraphML spec can be examined by [yEd](http://www.yworks.com/products/yed). We can apply different grouping algorithms
 to find package clusters and outliers. This can help confirm/refute different hypothesis that we may have about our code base.
