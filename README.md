@@ -2,9 +2,9 @@
 Graph analysis of Go codebases
 
 ## Overview
-Grapher analyzes dependencies in a Go codebase, and its main goal is to prevent spaghetti or ball-of-mud codebases. Grapher is ideally suited for codebases that have (or should have) a logical structure expressed via dependency requirements. A dependency requirement states which packages are public/private within a logical layer. For example, microservices are not allowed to import code from API endpoints. Data must be accessed only via the database wrappers, etc. See [Parnas](http://repository.cmu.edu/cgi/viewcontent.cgi?article=2828&context=compsci) for a detailed discussion.  
+Grapher analyzes dependencies in a Go codebase to prevent spaghetti or ball-of-mud codebases. Grapher is ideally suited for codebases that have a logical structure expressed via dependency requirements. A dependency requirement states which packages are public/private within a logical layer. For example, microservices are not allowed to import code from API endpoints. Data must be accessed only via the database wrappers, etc. See [Parnas](http://repository.cmu.edu/cgi/viewcontent.cgi?article=2828&context=compsci) for a detailed discussion.  
 
-Grapher constructs the graph of a given codebase where:
+Grapher constructs a graph of a given codebase where:
 
 1. Nodes are packages.
 2. The size of a node represents the number of functions declared in that package, normalized across all packages.
@@ -16,17 +16,12 @@ The output consists of two declarative specifications:
 1. [GraphML](http://graphml.graphdrawing.org/) specification
 2. [Prolog](https://en.wikipedia.org/wiki/Prolog) program. 
 
-The GraphML spec can be examined by [yEd](http://www.yworks.com/products/yed). We can apply different grouping algorithms
-to find package clusters and outliers. This can help confirm/refute different hypothesis that we may have about our code base.
-For example, the lack of distinct clusters indicates a code base with no structure and layering, a high number of outliers may indicate
-a need to combine different packages, etc. We can also look at two centrality measures: _edge_ and _betweeness_, to 
-find influential nodes and confirm whether the code base should in fact have super nodes.
+The GraphML spec can be examined in [yEd](http://www.yworks.com/products/yed). We can then apply standard community unfoldings and centrality analysis to find package clusters and outliers. This can help confirm/refute what we think we know about a given codebase.
+For example, the lack of distinct communities indicates no structure and layering, an outlier node with a very high inbetweens centrality indicates a package that hides a number of packages from other ones.
 
 The Prolog program contains the declarative specification
 of the package dependencies, and the directory structure. We can then verify in an _automated_ way whether the logical separation of packages within
-different layers (such as _endpoints_, _services_, _frameworks_, etc) is broken with the respect to the dependency structure. Clearly, this
-analysis only applies if the code base has some logical groupings amongst packages, and the code is not allowed to flow from _high_ packages
-(e.g. endpoints) to _low_ packages (e.g. crypto).
+different layers (such as _endpoints_, _services_, _frameworks_, etc) is consistent given a desired dependency structure. 
 
 Note, I use [Swi-Prolog](http://www.swi-prolog.org/) (an easy-to-install Prolog interpreter) to run constraints checks.
 
