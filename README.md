@@ -74,18 +74,16 @@ import ratios.
 
 #### Checking Bleve's constraints
 
-Arguably, most code bases should have logical constraints that are stronger than acylicity (enforced by Go itself). For example, a Bleve developer stated
-that the index package should not import any of the children of the analysis package. Similarly the search package ought not to import any of the children 
-of the index package, except for the store package. These logical constraints ensure that only the interfaces are used and not their concrete instantiations.
-There is currently no way to enforce such dependency constraints in Go.
+Arguably, most code bases ought to have logical constraints that are stronger than mere acylicity (enforced by Go itself). For example, a Bleve developer stated
+that the index package should not import any of the analysis package's children. Similarly, the search package mustn't import any of the index package's children, except for the store package. These particular constraints enforce that specific interfaces are used, and not their concrete instantiations. Note, Go cannot enforce such dependency constraints.
 
-Coming from the computational logic world, it felt natural to pick Prolog as the language to encode and verify constraints. The first example is:
+Consider the following:
 
 	violation("bleve", Y) :- dependency(Y, "github.com/blevesearch/bleve").
  
 It says that a violation named _bleve_ occurs whenever some package imports the bleve package. The way Prolog reasons about constraints is that it will try
 to find a particular dependency in the graph that will satisfy the body of the above statement. If it fails to find it, the violation is marked as false.
-For intros and explanations on Prolog see [link](http://www.doc.gold.ac.uk/~mas02gw/prolog_tutorial/prologpages/).  
+For further discusson on Prolog see [link](http://www.doc.gold.ac.uk/~mas02gw/prolog_tutorial/prologpages/).  
 
 In a similar fashion, we can encode further violations:
 
