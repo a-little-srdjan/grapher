@@ -29,9 +29,8 @@ Note, I use [Swi-Prolog](http://www.swi-prolog.org/) (an easy-to-install Prolog 
 Flags:
 * _pkgs_ : starting _root_ packages
 * _outputFile_ : file name for the two output files. The output extensions are _.graphml_ and _.pl_
-* _permit_ : regex pattern that has to be part of the package name in order to include it in the graph
-* _deny_ : regex pattern that must not be part of the package name in order to include it in the graph
-* _includeStdLib_ : include stdLib packages in the graph
+* _permit_ : regex pattern that has to be part of the package name in order to include it in the graph 
+* (Optional) _deny_ : regex pattern that must not be part of the package name in order to include it in the graph
 
 Given a package named `n`, then `n` is included in the graph unless either: 1) the permit filter is set, and the filter does not match `n`, 
 or 2) the deny filter is set, and the filter does match `n`.
@@ -42,11 +41,11 @@ or 2) the deny filter is set, and the filter does match `n`.
 ### Running grapher on itself
 Simple usage examples of running grapher on its own package structure:
 	
-`grapher -pkgs=a-little-srdjan/grapher/cmd -output=grapher` 
+`grapher -permit=a-littl-srdjan -pkgs=a-little-srdjan/grapher/cmd -output=grapher` 
 
 ![grapher simple exampleA](samples/grapher.png "Grapher on grapher")
 
-`grapher -deny="x|vendor" -pkgs=a-little-srdjan/grapher/cmd -output=grapher-no-x` 
+`grapher -deny="x|vendor" -permit=a-little-srdjan -pkgs=a-little-srdjan/grapher/cmd -output=grapher-no-x` 
 
 Unsurprisingly, there is not a lot of excitement in these diagrams. Grapher packages are small compared to the _tools_ packages (as one would expect), and grapher packages form a strong cluster.  
 
@@ -55,7 +54,7 @@ Unsurprisingly, there is not a lot of excitement in these diagrams. Grapher pack
 ### Running grapher on Bleve
 To spice up the examples, we run grapher on [Bleve](https://github.com/blevesearch/bleve), a search database written in Go.
 
-`grapher -deny="golang|vendor" -pkgs=github.com/blevesearch/bleve -output=samples/bleve`
+`grapher -deny="golang|vendor" -permit=bleve -pkgs=github.com/blevesearch/bleve -output=samples/bleve`
 
 ![bleve radial](samples/bleve_radial.png "Grapher on bleve")
 

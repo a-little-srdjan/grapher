@@ -2,9 +2,10 @@ package model
 
 import (
 	"go/types"
-	"golang.org/x/tools/go/loader"
 	"regexp"
 	"strings"
+
+	"golang.org/x/tools/go/loader"
 )
 
 type Filter struct {
@@ -47,14 +48,8 @@ func (p *PkgGraph) Populate(n *PkgNode) {
 		for _, c := range n.Node.Imports() {
 			cpath := c.Path()
 
-			if !p.Filter.includeStdLib && isStandardImportPath(cpath) {
+			if !p.Filter.permit.MatchString(cpath) {
 				continue
-			}
-
-			if p.Filter.permit != nil {
-				if !p.Filter.permit.MatchString(cpath) {
-					continue
-				}
 			}
 
 			if p.Filter.deny != nil {
