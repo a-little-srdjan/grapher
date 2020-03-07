@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/a-little-srdjan/grapher/pkg_graph"
+	"a-little-srdjan/grapher/model"
 )
 
 type GraphMLPrinter struct {
@@ -14,7 +14,7 @@ type GraphMLPrinter struct {
 	nodeSizeBoost float64
 }
 
-func NewGraphMLPrinter(graph *pkg_graph.PkgGraph, nodeSize, nodeSizeBoost float64) *GraphMLPrinter {
+func NewGraphMLPrinter(graph *model.PkgGraph, nodeSize, nodeSizeBoost float64) *GraphMLPrinter {
 	p := &GraphMLPrinter{
 		nodeSize:      nodeSize,
 		nodeSizeBoost: nodeSizeBoost,
@@ -51,7 +51,7 @@ func (p *GraphMLPrinter) WriteGraphElement() {
 	id := 0
 	for pname, pnode := range p.graph.Nodes {
 		for _, cnode := range pnode.Children {
-			weight := pnode.CallStatsEdge(pkg_graph.PkgName(cnode.ShortName()))
+			weight := pnode.CallStatsEdge(model.PkgName(cnode.ShortName()))
 			p.WriteEdgeElement(strconv.Itoa(id), pname, cnode.FullName(), weight)
 			id++
 		}

@@ -5,11 +5,11 @@ import (
 	"log"
 	"os"
 
-	"github.com/a-little-srdjan/grapher/pkg_graph"
+	"a-little-srdjan/grapher/model"
 )
 
 type graphPrinter struct {
-	graph  *pkg_graph.PkgGraph
+	graph  *model.PkgGraph
 	buffer *bytes.Buffer
 }
 

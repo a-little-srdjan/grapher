@@ -1,4 +1,4 @@
-package pkg_graph
+package model
 
 import (
 	"go/types"

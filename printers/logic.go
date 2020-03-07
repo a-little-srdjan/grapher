@@ -5,14 +5,14 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/a-little-srdjan/grapher/pkg_graph"
+	"a-little-srdjan/grapher/model"
 )
 
 type PrologPrinter struct {
 	graphPrinter
 }
 
-func NewPrologPrinter(graph *pkg_graph.PkgGraph) *PrologPrinter {
+func NewPrologPrinter(graph *model.PkgGraph) *PrologPrinter {
 	p := &PrologPrinter{}
 	p.graph = graph
 	return p

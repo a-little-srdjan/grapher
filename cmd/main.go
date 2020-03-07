@@ -6,8 +6,8 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/a-little-srdjan/grapher/pkg_graph"
-	"github.com/a-little-srdjan/grapher/printers"
+	"a-little-srdjan/grapher/model"
+	"a-little-srdjan/grapher/printers"
 	"golang.org/x/tools/go/loader"
 )
 
@@ -39,7 +39,7 @@ func main() {
 		}
 	}
 
-	filter := pkg_graph.NewFilter(*includeStdLib, pregexp, dregexp)
+	filter := model.NewFilter(*includeStdLib, pregexp, dregexp)
 
 	pkgList := strings.Split(*pkgs, ",")
 	_, err = conf.FromArgs(pkgList, true)
@@ -48,9 +48,9 @@ func main() {
 		log.Fatal(err)
 	}
 
-	g := pkg_graph.NewPkgGraph(filter, prog.AllPackages)
+	g := model.NewPkgGraph(filter, prog.AllPackages)
 	for _, v := range prog.Imported {
-		n := pkg_graph.NewPkgNode(v.Pkg, g.PkgInfos[v.Pkg].Files)
+		n := model.NewPkgNode(v.Pkg, g.PkgInfos[v.Pkg].Files)
 		g.Populate(n)
 	}
 

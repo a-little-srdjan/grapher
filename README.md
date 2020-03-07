@@ -42,32 +42,32 @@ or 2) the deny filter is set, and the filter does match `n`.
 ### Running grapher on itself
 Simple usage examples of running grapher on its own package structure:
 	
-`grapher -pkgs=github.com/a-little-srdjan/grapher -output=grapher` 
+`grapher -pkgs=a-little-srdjan/grapher/cmd -output=grapher` 
 
-![grapher simple exampleA](resources/grapher.png "Grapher on grapher")
+![grapher simple exampleA](samples/grapher.png "Grapher on grapher")
 
-`grapher -deny="x|vendor" -pkgs=github.com/a-little-srdjan/grapher -output=grapher-no-x` 
+`grapher -deny="x|vendor" -pkgs=a-little-srdjan/grapher/cmd -output=grapher-no-x` 
 
 Unsurprisingly, there is not a lot of excitement in these diagrams. Grapher packages are small compared to the _tools_ packages (as one would expect), and grapher packages form a strong cluster.  
 
-![grapher simple exampleB](resources/grapher-no-x.png "Grapher on grapher and excluding the x packages")
+![grapher simple exampleB](samples/grapher-no-x.png "Grapher on grapher and excluding the x packages")
 
 ### Running grapher on Bleve
 To spice up the examples, we run grapher on [Bleve](https://github.com/blevesearch/bleve), a search database written in Go.
 
-`grapher -deny="golang|vendor" -pkgs=github.com/blevesearch/bleve -output=resources/bleve`
+`grapher -deny="golang|vendor" -pkgs=github.com/blevesearch/bleve -output=samples/bleve`
 
-![bleve radial](resources/bleve_radial.png "Grapher on bleve")
+![bleve radial](samples/bleve_radial.png "Grapher on bleve")
 
 The graph above is laid out with the _radial_ layout. The graphs are best explored in yEd, these pictures are merely here for illustrations.
 It is interesting to note that the _registry_ package is a central node in the cluster, even though the top package _bleve_ has most functionality and most dependencies.
 The picture suggests that the _analysis_ package could embed the _registry_ package. This would make the analysis package most central to bleve.
 
-![bleve natural](resources/bleve_natural.png "Grapher on bleve")
+![bleve natural](samples/bleve_natural.png "Grapher on bleve")
 
 The _natural_ layout brings out super nodes in a graph. The graph above specifically reveals the search package as a super node, with a strong cluster. In addition, we have identified the search/highlight as another super node.
 
-![bleve circle](resources/bleve_circle.png "Grapher on bleve")
+![bleve circle](samples/bleve_circle.png "Grapher on bleve")
 
 The _circular_ layout is akin to the _chord_ layout often seen in [D3](https://github.com/d3/d3-chord). It is useful for gaining insights into each node's
 import ratios.
@@ -101,7 +101,7 @@ Now, we can say that constraints are broken if there are violations and no excep
 
 To check for any broken constraints, we can invoke SWI-Prolog:
 
-	swipl resources/bleve.pl resources/bleve_graph_constraints.pl 
+	swipl samples/bleve.pl samples/bleve_graph_constraints.pl 
 
 and enter the following query:
 
